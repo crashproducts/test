@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/38aa86de2d.js" crossorigin="anonymous"></script>
+  <audio id="sound" style="display: none;"><source src="notification.ogg" type="audio/ogg"></audio>
+  <title>Crash-Finders</title>
+  <link rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon'/>
+          <style>
+		  .loader {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -13px;
+	margin-left: -13px;
+	border-radius: 60px;
+	animation: loader 0.8s linear infinite;
+	-webkit-animation: loader 0.8s linear infinite;
+}
+
+.site-logo {
+	display: inline-block;
+	float: left;
+	padding-top: 6px;
+}
+
+.user-panel {
+	float: right;
+	font-weight: 500;
+	background: #ffb320;
+	padding: 8px 28px;
+	border-radius: 30px;
+}
+
+.user-panel a {
+	font-size: 14px;
+	color: #131313;
+}
+
+.main-menu {
+	float: right;
+	margin-right: 170px;
+}
+
+.main-menu ul {
+	list-style: none;
+}
+
+.main-menu ul li {
+	display: inline;
+}
+
+.main-menu ul li a {
+	display: inline-block;
+	font-size: 16px;
+	color: #fff;
+	margin-left: 35px;
+	font-weight: 500;
+	padding: 10px 5px;
+}
+
+.main-menu ul li a:hover {
+	color: #ffb320;
+}
+
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #000000;
+            }
+
+            #main-container {
+                margin: 0;
+                padding: 5px 100px;
+                 background-color: #000000;
+                color: green;
+            }
+
+            #main-table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #000000;
+            }
+
+            #main-table tbody {
+            }
+            
+            #main-table th, #main-table td{
+                border: 1px solid rgb(0, 0, 0);
+                padding: 4px;
+            }
+
+            #main-table tr:hover {
+                background-color: rgb(0, 0, 0);
+            }
+
+            #main-table th {
+                background-color: black;
+            }
+
+            #main-table .avatar-cell {
+                background-size: 48px !important;
+                background-position: center !important;
+                height: 48px;
+                width: 48px;
+                padding: 1px;
+                cursor: pointer;
+            }
+
+            #main-table .copy-text-button {
+                display: inline-block;
+                border-radius: 4px;
+                background-color: green;
+                border: none;
+                color: #000000;
+                text-align: center;
+                padding: 5px;
+                width: 50px;
+                transition: all 0.5s;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            #main-table .copy-text-button span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+            #main-table .listing-row.visited {
+                background-color: #000000;
+                color: #dadada;
+            }
+            a:link {
+            color: rgb(255, 255, 255);
+            background-color: transparent;
+            text-decoration: none;
+            }
+
+            a:visited {
+            color: rgb(255, 0, 0);
+            background-color: transparent;
+            text-decoration: none;
+            }
+
+            a:hover {
+            color: rgb(255, 0, 0);
+            background-color: transparent;
+            text-decoration: underline;
+            }
+
+            a:active {
+            color: yellow;
+            background-color: transparent;
+            text-decoration: underline;
+            }	
+         .button {
+  border: none;
+  color: red;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}				
+        </style>
+    </head>
+            	<!-- Header section -->
+	<header class="header-section">
+		<div class="container">
+			    <a class="site-logo" href="index.html">
+				<img src="img/logo.png" alt="">
+			    </a>
+			    <div class="user-panel">
+			    <form id = "search-form">
+                <label style="color: red" for="maxprice">მინიმალური. ფასი:</label>
+                <input type="number" min="30" max="2000" name="minprice" value="{{ minprice }}">
+                <label style="color: red" for="maxprice">მაქსიმალური ფასი:</label>
+                <input type="number" min="30" max="2000" name="maxprice" value="{{ maxprice }}">
+                <button onclick="document.getElementById('search-form').submit()">🔍</button>	
+<div class="image" style="padding-top:25px; text-align: center;"></i><a href="https://www.facebook.com/NeonMnatebeli" target="_blank" style="color: rgb(0, 0, 0);">Designed By NeonMnatebeli</a>
+        </div> 
+      </div> 
+    </div>
+
+            </form>
+			</div>
+			<!-- responsive -->
+			<div class="nav-switch">
+			</div>
+			<!-- site menu -->
+			<nav class="main-menu">
+				<ul>
+				</ul>
+			</nav>
+		</div>
+   </head>
+            <table class="table" style="color: yellow">
+                <tbody>
+                    <tr>
+                        <th>ფოტო</th>
+                        <th>ნივთი</th>
+						<th>სახელი</th>
+						<th>ფასი</th>
+                    </tr>
+					
+					                      <tr class="listing-row" id="lr-bd/bd61db2de2e1ecfcf7cc02d6941a496840bd5f6c-☜❶☞ Smokey ☜❶☞"> 
+                            <td href="https://steamcommunity.com/search/users/#text=☜❶☞ Smokey ☜❶☞" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('☜❶☞ Smokey ☜❶☞')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/bd/bd61db2de2e1ecfcf7cc02d6941a496840bd5f6c.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=☜❶☞ Smokey ☜❶☞" target="_blank">★ Talon Knife | Ultraviolet (Field-Tested)</a></td>
+                            <td onclick="copyText('★ Talon Knife | Ultraviolet (Field-Tested)')"> ☜❶☞ Smokey ☜❶☞</td>
+							<td>220$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-26/2681d9687640698fd365026cc57920b2aa56b26a-FotFot_GR"> 
+                            <td href="https://steamcommunity.com/search/users/#text=FotFot_GR" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('FotFot_GR')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/2681d9687640698fd365026cc57920b2aa56b26a.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=FotFot_GR" target="_blank">★ Huntsman Knife | Tiger Tooth (Minimal Wear)</a></td>
+                            <td onclick="copyText('★ Huntsman Knife | Tiger Tooth (Minimal Wear)')"> FotFot_GR</td>
+							<td>218$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-70/70b6858984770567c63c48ec68fb5f8f1dc38dd6-Vers la mort"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Vers la mort" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Vers la mort')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/70/70b6858984770567c63c48ec68fb5f8f1dc38dd6.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Vers la mort" target="_blank">★ Moto Gloves | Finish Line (Well-Worn)</a></td>
+                            <td onclick="copyText('★ Moto Gloves | Finish Line (Well-Worn)')"> Vers la mort</td>
+							<td>180$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-a2/a271e846604eca9db1cb1a24689cb1252b4cdc00-michael"> 
+                            <td href="https://steamcommunity.com/search/users/#text=michael" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('michael')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/a2/a271e846604eca9db1cb1a24689cb1252b4cdc00.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=michael" target="_blank">★ StatTrak™ Talon Knife | Doppler (Factory New)</a></td>
+                            <td onclick="copyText('★ StatTrak™ Talon Knife | Doppler (Factory New)')"> michael</td>
+							<td>787$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-6e/6e9530d3c2e306485c4ac50d8923030ee5b1238a-❂ ワイズモナーク ❂"> 
+                            <td href="https://steamcommunity.com/search/users/#text=❂ ワイズモナーク ❂" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('❂ ワイズモナーク ❂')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/6e/6e9530d3c2e306485c4ac50d8923030ee5b1238a.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=❂ ワイズモナーク ❂" target="_blank">★ Shadow Daggers | Marble Fade (Factory New)</a></td>
+                            <td onclick="copyText('★ Shadow Daggers | Marble Fade (Factory New)')"> ❂ ワイズモナーク ❂</td>
+							<td>132$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+     
+                        <tr class="listing-row" id="lr-cf/cff11a8a03adfec7d1a981aab5dc8731993b389d-JoNJoN^"> 
+                            <td href="https://steamcommunity.com/search/users/#text=JoNJoN^" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('JoNJoN^')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/cf/cff11a8a03adfec7d1a981aab5dc8731993b389d.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=JoNJoN^" target="_blank">★ M9 Bayonet | Crimson Web (Minimal Wear)</a></td>
+                            <td onclick="copyText('★ M9 Bayonet | Crimson Web (Minimal Wear)')"> JoNJoN^</td>
+							<td>1247$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-c0/c092f85eb328f90fe3892a5502530d2a991b4989-为什么不问问神奇海螺"> 
+                            <td href="https://steamcommunity.com/search/users/#text=为什么不问问神奇海螺" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('为什么不问问神奇海螺')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c0/c092f85eb328f90fe3892a5502530d2a991b4989.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=为什么不问问神奇海螺" target="_blank">★ Hand Wraps | Duct Tape (Field-Tested)</a></td>
+                            <td onclick="copyText('★ Hand Wraps | Duct Tape (Field-Tested)')"> 为什么不问问神奇海螺</td>
+							<td>86$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-79/79297ece9c0224c4095cbb6bc7575ecc5b82e628-yL hAnG逸航Rust饰品回收"> 
+                            <td href="https://steamcommunity.com/search/users/#text=yL hAnG逸航Rust饰品回收" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('yL hAnG逸航Rust饰品回收')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/79/79297ece9c0224c4095cbb6bc7575ecc5b82e628.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=yL hAnG逸航Rust饰品回收" target="_blank">★ Sport Gloves | Amphibious (Battle-Scarred)</a></td>
+                            <td onclick="copyText('★ Sport Gloves | Amphibious (Battle-Scarred)')"> yL hAnG逸航Rust饰品回收</td>
+							<td>408$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-59/5976e80ddaf4bbc7d65b605013e3d8268b92f820-milktruck just arrived"> 
+                            <td href="https://steamcommunity.com/search/users/#text=milktruck just arrived" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('milktruck just arrived')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/59/5976e80ddaf4bbc7d65b605013e3d8268b92f820.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=milktruck just arrived" target="_blank">★ M9 Bayonet | Crimson Web (Field-Tested)</a></td>
+                            <td onclick="copyText('★ M9 Bayonet | Crimson Web (Field-Tested)')"> milktruck just arrived</td>
+							<td>627$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-43/4320a16b7b814ef8e342d9586ebfb6578600ea63-nado"> 
+                            <td href="https://steamcommunity.com/search/users/#text=nado" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('nado')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/43/4320a16b7b814ef8e342d9586ebfb6578600ea63.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=nado" target="_blank">★ Bayonet | Safari Mesh (Well-Worn)</a></td>
+                            <td onclick="copyText('★ Bayonet | Safari Mesh (Well-Worn)')"> nado</td>
+							<td>155$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-d1/d1ced722bf48eb703730f326e2ca5e502f622743-Cesq"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Cesq" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Cesq')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d1/d1ced722bf48eb703730f326e2ca5e502f622743.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Cesq" target="_blank">★ Hydra Gloves | Emerald (Battle-Scarred)</a></td>
+                            <td onclick="copyText('★ Hydra Gloves | Emerald (Battle-Scarred)')"> Cesq</td>
+							<td>207$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-d1/d1ced722bf48eb703730f326e2ca5e502f622743-Cesq"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Cesq" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Cesq')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d1/d1ced722bf48eb703730f326e2ca5e502f622743.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Cesq" target="_blank">★ Navaja Knife | Tiger Tooth (Factory New)</a></td>
+                            <td onclick="copyText('★ Navaja Knife | Tiger Tooth (Factory New)')"> Cesq</td>
+							<td>310$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-5e/5ed35ffaed10e84a5a717e43a8e7676711a8656c-Vali"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Vali" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Vali')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/5e/5ed35ffaed10e84a5a717e43a8e7676711a8656c.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Vali" target="_blank">★ Driver Gloves | Black Tie (Field-Tested)</a></td>
+                            <td onclick="copyText('★ Driver Gloves | Black Tie (Field-Tested)')"> Vali</td>
+							<td>271$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-8d/8dfe278c7493b6984540e57ecd57b791df13841e-Wilku"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Wilku" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Wilku')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/8d/8dfe278c7493b6984540e57ecd57b791df13841e.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Wilku" target="_blank">★ Flip Knife | Tiger Tooth (Factory New)</a></td>
+                            <td onclick="copyText('★ Flip Knife | Tiger Tooth (Factory New)')"> Wilku</td>
+							<td>737$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+                        <tr class="listing-row" id="lr-ae/ae7aa7804a7d6705426a847aff93fd92b71f1d1d-Floppy´s"> 
+                            <td href="https://steamcommunity.com/search/users/#text=Floppy´s" 
+							    class="avatar-cell"
+                                target="_blank"  onClick="copyText('Floppy´s')" 
+                                style="background: url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/ae/ae7aa7804a7d6705426a847aff93fd92b71f1d1d.jpg')
+								no-repeat;"></td>
+							<td><a href="https://steamcommunity.com/search/users/#text=Floppy´s" target="_blank">Sticker | arT (Gold) | Berlin 2019</a></td>
+                            <td onclick="copyText('Sticker | arT (Gold) | Berlin 2019')"> Floppy´s</td>
+							<td>94$</td>
+                            </form><td>
+					        <td>
+                            <button class="copy-button" onclick="copyText(this)" lang="en">
+                                <img src="http://3.143.233.179/finder/img/US-United-States-Flag-icon.png"
+                                     alt="EN">
+                            </button>
+                            <button class="copy-button" onclick="copyText(this)" lang="cn"><img
+                                    src="http://3.143.233.179/finder/img/CN-China-Flag-icon.png"
+                                    alt="CN"></button>
+                        </td>
+                        </tr>
+                    
+            </table>
+        </div>
+<script >
+  function setCheckboxesStatesFromLocalStorage() {
+    const notificationCheckBox = document.getElementById("notificationCheckBox");
+    const notificationState = eval(localStorage["notificationIsOn"]);
+    notificationCheckBox.checked = notificationState;
+
+
+    document.getElementById("refreshCheckBox").checked = eval(localStorage["refreshIsOn"]);
+    
+}
+
+
+function saveCheckBoxesState() {
+    const notificationCheckBox = document.getElementById("notificationCheckBox");
+    localStorage["notificationIsOn"] = notificationCheckBox.checked;
+
+    const autoRefreshCheckBox = document.getElementById("refreshCheckBox");
+    localStorage["refreshIsOn"] = autoRefreshCheckBox.checked;
+}
+
+function getItemName(arg = "") {
+    let from = arg.indexOf("-") + 2;
+    if (arg.includes("★")) from = arg.indexOf("★") + 2;
+    let to = arg.lastIndexOf("(") - 1;
+    to = to > 0 ? to : arg.length;
+    return arg.slice(from, to);
+
+}
+
+function copyText(element) {
+    if (!element) return;
+    let text = element.parentElement.parentElement.children[1].innerText;
+    text = getItemName(text);
+    let preText = "";
+    if (element.lang === "en") {
+        preText = "Hello add me please, I have reached my daily invite limit. I'm interested in your ";
+    } else if (element.lang === "cn") {
+        preText = "你好，请加我，我已达到每日邀请上限。我对你感兴趣 ";
+    }
+
+    const copyText = document.createElement('textArea')
+
+    copyText.value = preText + text
+    document.body.appendChild(copyText)
+
+    copyText.select()
+    copyText.setSelectionRange(0, 99999)
+
+    document.execCommand('copy')
+    document.body.removeChild(copyText)
+}
+
+function checkNewRecord() {
+    const lastRecord = document.querySelector("body > div > div > div > table > tbody > tr:nth-child(1)")?.innerText;
+
+    if (lastRecord === undefined) return;
+    if (lastRecord !== localStorage["lastRecord"]) {
+        notifySound();
+        localStorage["lastRecord"] = lastRecord;
+    }
+}
+
+function notifySound() {
+    const soundIsChecked = document.getElementById("notificationCheckBox").checked;
+    if (!soundIsChecked) return;
+
+    const audio = document.getElementById("audiotag1");new Audio("notification.ogg");
+    audio.volume = 0.5;
+    audio.play();
+}
+
+function main() {
+    setCheckboxesStatesFromLocalStorage()
+    checkNewRecord();
+
+    setInterval(() => {
+        const refreshBool = document.getElementById("refreshCheckBox").checked;
+        if (refreshBool) location.reload();
+
+
+    }, 5e3)
+
+}
+main()
+</script>
+
+</body>
+
+</html>
